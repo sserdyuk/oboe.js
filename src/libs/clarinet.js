@@ -30,7 +30,7 @@ function clarinet (eventBus) {
   var emitValueClose = eventBus(SAX_VALUE_CLOSE).emit
   var emitFail = eventBus(FAIL_EVENT).emit
 
-  var MAX_BUFFER_LENGTH = 64 * 1024
+  var MAX_BUFFER_LENGTH = 64 * 1024 * 16
   var stringTokenPattern = /[\\"\n]/g
   var _n = 0
 
@@ -79,12 +79,12 @@ function clarinet (eventBus) {
     var maxActual = 0
 
     if (textNode !== undefined && textNode.length > MAX_BUFFER_LENGTH) {
-      emitError('Max buffer length exceeded: textNode')
       maxActual = Math.max(maxActual, textNode.length)
+      emitError('Max buffer length exceeded: textNode')
     }
     if (numberNode.length > MAX_BUFFER_LENGTH) {
-      emitError('Max buffer length exceeded: numberNode')
       maxActual = Math.max(maxActual, numberNode.length)
+      emitError('Max buffer length exceeded: numberNode')
     }
 
     bufferCheckPosition = (MAX_BUFFER_LENGTH - maxActual) +
